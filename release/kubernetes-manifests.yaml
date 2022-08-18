@@ -573,11 +573,11 @@ spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       restartPolicy: Always
-      securityContext:
-        fsGroup: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
+      # securityContext:
+      #   fsGroup: 1000
+      #   runAsGroup: 1000
+      #   runAsNonRoot: true
+      #   runAsUser: 1000
       initContainers:
       - command:
         - /bin/sh
@@ -616,6 +616,14 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
+        volumeMounts:
+          - mountPath: /loadgen/locustfile.py
+            name: locustfile
+      volumes:
+        - name: locustfile
+          hostPath:
+            path: /home/mstemm/work/locustfile.py
+            type: File
 ---
 apiVersion: apps/v1
 kind: Deployment
